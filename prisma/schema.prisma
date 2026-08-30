@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Order {
+  id           String     @id @default(cuid())
+  code         String     @unique
+  customerName String
+  phone        String
+  type         String // "pickup" | "delivery"
+  address      String?
+  total        Int
+  status       String     @default("received") // received | preparing | ready
+  createdAt    DateTime   @default(now())
+  items        OrderItem[]
+}
+
+model OrderItem {
+  id        String @id @default(cuid())
+  orderId   String
+  order     Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  name      String
+  qty       Int
+  addons    String // comma-separated add-on labels
+  unitPrice Int
+  lineTotal Int
+}

@@ -1,0 +1,347 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* shadcn token mapping */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-outfit);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* ── La'Frutella Brand Tokens (from logo) ───────────── */
+  --color-maroon: #6e1d2b;
+  --color-maroon-deep: #420c16;
+  --color-maroon-dark: #571320;
+  --color-maroon-light: #8a2b3c;
+  --color-gold: #d9a441;
+  --color-gold-light: #f0cd8c;
+  --color-gold-dark: #a97b24;
+  --color-cream: #fbf3e4;
+  --color-cream-dark: #f1e2c6;
+  --color-choco: #3b2314;
+  --color-berry: #c4405e;
+
+  /* Typography */
+  --font-display: var(--font-playfair);
+  --font-body: var(--font-outfit);
+}
+
+:root {
+  --radius: 1rem;
+  --background: #fdf8ef;
+  --foreground: #3b2314;
+  --card: #fffdf8;
+  --card-foreground: #3b2314;
+  --popover: #fffdf8;
+  --popover-foreground: #3b2314;
+  --primary: #6e1d2b;
+  --primary-foreground: #fbf3e4;
+  --secondary: #f1e2c6;
+  --secondary-foreground: #571320;
+  --muted: #f5ebd8;
+  --muted-foreground: #8a6f52;
+  --accent: #f6e7c8;
+  --accent-foreground: #6e1d2b;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #e7d7b8;
+  --input: #e7d7b8;
+  --ring: #d9a441;
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: #fbf3e4;
+  --sidebar-foreground: #3b2314;
+  --sidebar-primary: #6e1d2b;
+  --sidebar-primary-foreground: #fbf3e4;
+  --sidebar-accent: #f1e2c6;
+  --sidebar-accent-foreground: #571320;
+  --sidebar-border: #e7d7b8;
+  --sidebar-ring: #d9a441;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  ::selection {
+    background: #d9a441;
+    color: #420c16;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   La'Frutella Custom Motion & Effects
+   ══════════════════════════════════════════════ */
+
+@keyframes lf-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes lf-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes lf-shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes lf-drip {
+  0% {
+    transform: translateY(-20px) scaleY(0.5);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(46vh) scaleY(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes lf-twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.8) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15) rotate(20deg);
+  }
+}
+
+@keyframes lf-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 24px 2px rgba(217, 164, 65, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 54px 10px rgba(217, 164, 65, 0.6);
+  }
+}
+
+@keyframes lf-ring-pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@keyframes lf-spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes lf-wiggle {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+@layer utilities {
+  /* Infinite rolling marquee — duplicated content translateX(-50%) */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: lf-marquee var(--marquee-duration, 40s) linear infinite;
+  }
+  .marquee-reverse {
+    animation-direction: reverse;
+  }
+  .marquee-pause:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .animate-float {
+    animation: lf-float 6s ease-in-out infinite;
+  }
+  .animate-float-delayed {
+    animation: lf-float 7s ease-in-out 1.4s infinite;
+  }
+  .animate-spin-slower {
+    animation: lf-spin-slow 26s linear infinite;
+  }
+  .animate-twinkle {
+    animation: lf-twinkle 2.4s ease-in-out infinite;
+  }
+  .animate-glow {
+    animation: lf-glow 2.6s ease-in-out infinite;
+  }
+  .animate-wiggle {
+    animation: lf-wiggle 3s ease-in-out infinite;
+  }
+  .animate-drip {
+    animation: lf-drip 1.9s cubic-bezier(0.5, 0, 0.8, 0.4) infinite;
+  }
+
+  /* Luxury gold shimmer text */
+  .text-gold-shimmer {
+    background: linear-gradient(
+      100deg,
+      #a97b24 0%,
+      #d9a441 18%,
+      #f0cd8c 38%,
+      #f7e3b0 50%,
+      #f0cd8c 62%,
+      #d9a441 82%,
+      #a97b24 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: lf-shimmer 4.5s linear infinite;
+  }
+
+  /* Pulsing logo halo rings (loader) */
+  .halo-ring {
+    animation: lf-ring-pulse 2.2s ease-out infinite;
+  }
+
+  /* Soft radial dot pattern */
+  .bg-dots {
+    background-image: radial-gradient(
+      rgba(110, 29, 43, 0.09) 1.5px,
+      transparent 1.5px
+    );
+    background-size: 24px 24px;
+  }
+  .bg-dots-gold {
+    background-image: radial-gradient(
+      rgba(217, 164, 65, 0.16) 1.5px,
+      transparent 1.5px
+    );
+    background-size: 26px 26px;
+  }
+
+  /* Edge fade for marquees */
+  .fade-x {
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      black 7%,
+      black 93%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      black 7%,
+      black 93%,
+      transparent
+    );
+  }
+
+  /* Elegant thin scrollbar for long lists */
+  .fancy-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+  .fancy-scroll::-webkit-scrollbar-track {
+    background: rgba(217, 164, 65, 0.12);
+    border-radius: 99px;
+  }
+  .fancy-scroll::-webkit-scrollbar-thumb {
+    background: linear-gradient(#d9a441, #a97b24);
+    border-radius: 99px;
+  }
+}
