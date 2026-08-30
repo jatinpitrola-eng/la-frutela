@@ -52,3 +52,10 @@ prompt
 server.log
 # Skills directory
 /skills/
+# local runtime artifacts
+dev.log
+server.log
+db/
+agent-ctx/
+download/
+tests/

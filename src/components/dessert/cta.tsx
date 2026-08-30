@@ -24,6 +24,42 @@ export default function CtaBanner() {
         <div className="pointer-events-none absolute -left-20 -top-20 h-64 w-64 rounded-full bg-gold/20 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -right-16 h-72 w-72 rounded-full bg-maroon-light/40 blur-3xl" />
 
+        {/* rising gold motes inside the banner */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+          {[
+            { left: "8%", size: 5, dur: "11s", delay: "0s" },
+            { left: "18%", size: 4, dur: "14s", delay: "3s" },
+            { left: "34%", size: 6, dur: "12s", delay: "6s" },
+            { left: "52%", size: 4, dur: "15s", delay: "1.5s" },
+            { left: "66%", size: 5, dur: "13s", delay: "4.5s" },
+            { left: "82%", size: 4, dur: "16s", delay: "2.5s" },
+            { left: "92%", size: 6, dur: "12s", delay: "7.5s" },
+          ].map((m, i) => (
+            <span
+              key={i}
+              className="gold-mote"
+              style={{
+                left: m.left,
+                width: m.size,
+                height: m.size,
+                animationDuration: m.dur,
+                animationDelay: m.delay,
+                ["--mote-opacity" as string]: 0.55,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* rotating ornament ring */}
+        <div
+          aria-hidden
+          className="animate-spin-slower pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full border border-dashed border-gold/25"
+        />
+        <div
+          aria-hidden
+          className="animate-spin-rev pointer-events-none absolute -bottom-28 -left-24 h-80 w-80 rounded-full border border-dashed border-gold/20"
+        />
+
         {/* floating treats */}
         <div className="animate-float absolute left-8 top-8 hidden h-20 w-20 overflow-hidden rounded-full opacity-90 ring-4 ring-gold/40 lg:block">
           <Image src="/images/cupcake.png" alt="" fill sizes="80px" className="object-cover" />

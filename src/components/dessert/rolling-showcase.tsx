@@ -5,6 +5,28 @@ import Image from "next/image";
 import { PARADE_ITEMS } from "@/lib/dessert-data";
 import { cn } from "@/lib/utils";
 
+/** giant outlined word that scrolls against the parade rows */
+function Watermark({ text, reverse, duration }: { text: string; reverse?: boolean; duration: string }) {
+  const words = Array.from({ length: 8 }, (_, i) => i);
+  return (
+    <div className="pointer-events-none absolute inset-x-[-10%] top-1/2 -translate-y-1/2 overflow-hidden" aria-hidden>
+      <div
+        className={cn("marquee-track items-center", reverse && "marquee-reverse")}
+        style={{ ["--marquee-duration" as string]: duration }}
+      >
+        {words.map((i) => (
+          <span
+            key={i}
+            className="text-outline-cream whitespace-nowrap px-6 font-display text-[16vw] font-black leading-none lg:text-[10rem]"
+          >
+            {text} ✦
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Row({
   reverse,
   duration,
@@ -61,6 +83,14 @@ export default function RollingShowcase() {
       <div className="bg-dots-gold pointer-events-none absolute inset-0 opacity-70" />
       <div className="pointer-events-none absolute left-1/2 top-0 h-64 w-[720px] -translate-x-1/2 rounded-full bg-gold/10 blur-3xl" />
 
+      {/* gold hairlines framing the parade hall */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent" aria-hidden />
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent" aria-hidden />
+
+      {/* counter-scrolling 3D watermark hall */}
+      <Watermark text="PARADE" duration="70s" />
+      <Watermark text="SWEET" reverse duration="88s" />
+
       <motion.div
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -87,6 +117,7 @@ export default function RollingShowcase() {
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.9, delay: 0.15 }}
         className="relative mt-6 space-y-2"
+        style={{ perspective: "1400px" }}
       >
         <Row duration="58s" />
         <Row reverse duration="70s" />

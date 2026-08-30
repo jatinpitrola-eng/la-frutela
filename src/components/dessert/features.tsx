@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ChefHat, Clock, PartyPopper, Sprout } from "lucide-react";
+import TiltCard from "./tilt-card";
 
 const FEATURES = [
   {
@@ -35,22 +36,23 @@ export default function Features() {
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {FEATURES.map((f, i) => (
-            <motion.div
-              key={f.title}
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: i * 0.08 }}
-              className="group rounded-[1.75rem] border border-gold/25 bg-white p-6 shadow-md shadow-maroon/5 transition-all duration-500 hover:-translate-y-1.5 hover:border-gold/60 hover:shadow-xl hover:shadow-gold/20"
-            >
-              <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-gold-light to-gold text-maroon-deep shadow-lg shadow-gold/30 transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
-                <f.icon className="h-7 w-7" />
-              </span>
-              <h3 className="mt-4 font-display text-lg font-bold text-maroon-deep">
-                {f.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-choco/60">{f.text}</p>
-            </motion.div>
+            <TiltCard key={f.title} max={8} lift={6} innerClassName="h-full" className="h-full">
+              <motion.div
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.6, delay: i * 0.08 }}
+                className="shine-sweep group relative h-full overflow-hidden rounded-[1.75rem] border border-gold/25 bg-white p-6 shadow-md shadow-maroon/5 transition-[border-color,box-shadow] duration-500 hover:border-gold/60 hover:shadow-xl hover:shadow-gold/20"
+              >
+                <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-gold-light to-gold text-maroon-deep shadow-lg shadow-gold/30 transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
+                  <f.icon className="h-7 w-7" />
+                </span>
+                <h3 className="mt-4 font-display text-lg font-bold text-maroon-deep">
+                  {f.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-choco/60">{f.text}</p>
+              </motion.div>
+            </TiltCard>
           ))}
         </div>
       </div>

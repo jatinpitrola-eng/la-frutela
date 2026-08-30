@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
+
+/**
+ * Orders API — resilient by design.
+ *
+ * - Local / self-hosted: persists to SQLite through Prisma.
+ * - Vercel (serverless, ephemeral FS): transparently falls back to an
+ *   in-memory store so the full ordering experience keeps working.
+ */
 
 interface IncomingItem {
   name: string;
@@ -16,6 +23,128 @@ interface OrderPayload {
   address: string | null;
   items: IncomingItem[];
   total: number;
+}
+
+interface StoredOrder {
+  code: string;
+  customerName: string;
+  phone: string;
+  type: string;
+  address: string | null;
+  total: number;
+  status: string;
+  createdAt: string;
+  items: {
+    name: string;
+    qty: number;
+    addons: string;
+    unitPrice: number;
+    lineTotal: number;
+  }[];
+}
+
+interface OrderStore {
+  exists(code: string): Promise<boolean>;
+  create(code: string, payload: OrderPayload): Promise<StoredOrder>;
+  count(): Promise<number>;
+}
+
+/* ── In-memory store (globalThis survives dev hot-reload) ── */
+const g = globalThis as unknown as { __lfMemoryOrders?: Map<string, StoredOrder> };
+const memoryOrders = (g.__lfMemoryOrders ??= new Map<string, StoredOrder>());
+
+const memoryStore: OrderStore = {
+  async exists(code) {
+    return memoryOrders.has(code);
+  },
+  async create(code, payload) {
+    const order: StoredOrder = {
+      code,
+      customerName: payload.customerName.trim().slice(0, 80),
+      phone: payload.phone.trim(),
+      type: payload.type === "delivery" ? "delivery" : "pickup",
+      address: payload.address ? payload.address.trim().slice(0, 300) : null,
+      total: Math.round(payload.total),
+      status: "received",
+      createdAt: new Date().toISOString(),
+      items: payload.items.slice(0, 50).map((it) => ({
+        name: String(it.name).slice(0, 120),
+        qty: Math.max(1, Math.min(99, Math.round(it.qty))),
+        addons: (it.addons ?? []).join(", ").slice(0, 300),
+        unitPrice: Math.max(0, Math.round(it.unitPrice)),
+        lineTotal: Math.max(0, Math.round(it.lineTotal)),
+      })),
+    };
+    memoryOrders.set(code, order);
+    return order;
+  },
+  async count() {
+    return memoryOrders.size;
+  },
+};
+
+/* ── Prisma store (skipped entirely on Vercel; falls back on any error) ── */
+async function getPrismaStore(): Promise<OrderStore | null> {
+  if (process.env.VERCEL) return null;
+  try {
+    const { db } = await import("@/lib/db");
+    return {
+      async exists(code) {
+        const found = await db.order.findUnique({ where: { code } });
+        return Boolean(found);
+      },
+      async create(code, payload) {
+        const order = await db.order.create({
+          data: {
+            code,
+            customerName: payload.customerName.trim().slice(0, 80),
+            phone: payload.phone.trim(),
+            type: payload.type === "delivery" ? "delivery" : "pickup",
+            address: payload.address ? payload.address.trim().slice(0, 300) : null,
+            total: Math.round(payload.total),
+            status: "received",
+            items: {
+              create: payload.items.slice(0, 50).map((it) => ({
+                name: String(it.name).slice(0, 120),
+                qty: Math.max(1, Math.min(99, Math.round(it.qty))),
+                addons: (it.addons ?? []).join(", ").slice(0, 300),
+                unitPrice: Math.max(0, Math.round(it.unitPrice)),
+                lineTotal: Math.max(0, Math.round(it.lineTotal)),
+              })),
+            },
+          },
+          include: { items: true },
+        });
+        return {
+          code: order.code,
+          customerName: order.customerName,
+          phone: order.phone,
+          type: order.type,
+          address: order.address,
+          total: order.total,
+          status: order.status,
+          createdAt: order.createdAt.toISOString(),
+          items: order.items.map((it) => ({
+            name: it.name,
+            qty: it.qty,
+            addons: it.addons,
+            unitPrice: it.unitPrice,
+            lineTotal: it.lineTotal,
+          })),
+        };
+      },
+      async count() {
+        return db.order.count();
+      },
+    };
+  } catch {
+    return null;
+  }
+}
+
+async function resolveStore(): Promise<OrderStore> {
+  const prisma = await getPrismaStore();
+  return prisma ?? memoryStore;
 }
 
 function makeOrderCode() {
@@ -51,35 +180,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const store = await resolveStore();
+
     // Ensure unique code
     let code = makeOrderCode();
     for (let i = 0; i < 5; i++) {
-      const exists = await db.order.findUnique({ where: { code } });
-      if (!exists) break;
+      if (!(await store.exists(code))) break;
       code = makeOrderCode();
     }
 
-    const order = await db.order.create({
-      data: {
-        code,
-        customerName: body.customerName.trim().slice(0, 80),
-        phone: body.phone.trim(),
-        type: body.type === "delivery" ? "delivery" : "pickup",
-        address: body.address ? body.address.trim().slice(0, 300) : null,
-        total: Math.round(body.total),
-        status: "received",
-        items: {
-          create: body.items.slice(0, 50).map((it) => ({
-            name: String(it.name).slice(0, 120),
-            qty: Math.max(1, Math.min(99, Math.round(it.qty))),
-            addons: (it.addons ?? []).join(", ").slice(0, 300),
-            unitPrice: Math.max(0, Math.round(it.unitPrice)),
-            lineTotal: Math.max(0, Math.round(it.lineTotal)),
-          })),
-        },
-      },
-      include: { items: true },
-    });
+    const order = await store.create(code, body);
 
     return NextResponse.json(
       { orderId: order.code, status: order.status, createdAt: order.createdAt },
@@ -96,7 +206,8 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   try {
-    const count = await db.order.count();
+    const store = await resolveStore();
+    const count = await store.count();
     return NextResponse.json({ totalOrders: count });
   } catch {
     return NextResponse.json({ totalOrders: 0 });

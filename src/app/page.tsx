@@ -15,6 +15,9 @@ import Testimonials from "@/components/dessert/testimonials";
 import CtaBanner from "@/components/dessert/cta";
 import Footer from "@/components/dessert/footer";
 import OrderModal from "@/components/dessert/order-modal";
+import AmbientBackground from "@/components/dessert/ambient-background";
+import ScrollProgress from "@/components/dessert/scroll-progress";
+import LuxuryCursor from "@/components/dessert/luxury-cursor";
 import { smoothScrollTo } from "@/lib/smooth-scroll";
 import type { CategoryId } from "@/lib/dessert-data";
 
@@ -33,7 +36,12 @@ export default function Home() {
         {loading && <Preloader onFinish={() => setLoading(false)} />}
       </AnimatePresence>
 
-      <div className="flex min-h-screen flex-col bg-background font-body text-foreground">
+      <AmbientBackground />
+      <ScrollProgress />
+      <LuxuryCursor />
+
+      {/* bg-background lives on <body>; wrapper stays transparent so the ambient layer breathes through */}
+      <div className="relative z-10 flex min-h-screen flex-col font-body text-foreground">
         <Navbar />
         <main className="flex-1">
           <Hero />

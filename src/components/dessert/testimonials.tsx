@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Quote, Star } from "lucide-react";
+import TiltCard from "./tilt-card";
 
 const REVIEWS = [
   {
@@ -61,44 +62,45 @@ export default function Testimonials() {
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {REVIEWS.map((r, i) => (
-            <motion.figure
-              key={r.name}
-              initial={{ opacity: 0, y: 36 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.65, delay: i * 0.12 }}
-              className="relative flex flex-col rounded-[1.75rem] border border-gold/25 bg-white p-7 shadow-lg shadow-maroon/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-gold/20"
-            >
-              <Quote
-                className="absolute right-6 top-6 h-8 w-8 text-gold/30"
-                aria-hidden
-              />
-              <div className="flex gap-1 text-gold-dark" aria-label="5 star review">
-                {Array.from({ length: 5 }).map((_, s) => (
-                  <Star key={s} className="h-4 w-4 fill-current" />
-                ))}
-              </div>
-              <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-choco/75">
-                “{r.text}”
-              </blockquote>
-              <figcaption className="mt-6 flex items-center gap-3 border-t border-dashed border-gold/40 pt-5">
-                <span
-                  className="grid h-11 w-11 place-items-center rounded-full font-display text-sm font-bold text-cream"
-                  style={{
-                    background:
-                      i % 2 === 0
-                        ? "linear-gradient(135deg,#6e1d2b,#8a2b3c)"
-                        : "linear-gradient(135deg,#a97b24,#d9a441)",
-                  }}
-                >
-                  {r.initials}
-                </span>
-                <div>
-                  <p className="text-sm font-bold text-maroon-deep">{r.name}</p>
-                  <p className="text-xs text-choco/50">{r.role}</p>
+            <TiltCard key={r.name} max={6} lift={7} innerClassName="h-full" className="h-full">
+              <motion.figure
+                initial={{ opacity: 0, y: 36 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.65, delay: i * 0.12 }}
+                className="shine-sweep relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-gold/25 bg-white p-7 shadow-lg shadow-maroon/5 transition-[border-color,box-shadow] duration-500 hover:border-gold/50 hover:shadow-2xl hover:shadow-gold/20"
+              >
+                <Quote
+                  className="absolute right-6 top-6 h-8 w-8 text-gold/30"
+                  aria-hidden
+                />
+                <div className="flex gap-1 text-gold-dark" aria-label="5 star review">
+                  {Array.from({ length: 5 }).map((_, s) => (
+                    <Star key={s} className="h-4 w-4 fill-current" />
+                  ))}
                 </div>
-              </figcaption>
-            </motion.figure>
+                <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-choco/75">
+                  “{r.text}”
+                </blockquote>
+                <figcaption className="mt-6 flex items-center gap-3 border-t border-dashed border-gold/40 pt-5">
+                  <span
+                    className="grid h-11 w-11 place-items-center rounded-full font-display text-sm font-bold text-cream"
+                    style={{
+                      background:
+                        i % 2 === 0
+                          ? "linear-gradient(135deg,#6e1d2b,#8a2b3c)"
+                          : "linear-gradient(135deg,#a97b24,#d9a441)",
+                    }}
+                  >
+                    {r.initials}
+                  </span>
+                  <div>
+                    <p className="text-sm font-bold text-maroon-deep">{r.name}</p>
+                    <p className="text-xs text-choco/50">{r.role}</p>
+                  </div>
+                </figcaption>
+              </motion.figure>
+            </TiltCard>
           ))}
         </div>
       </div>

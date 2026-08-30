@@ -14,6 +14,7 @@ import {
 import { useCart } from "@/lib/store";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import TiltCard from "./tilt-card";
 import DessertModal from "./dessert-modal";
 
 const TAG_STYLES: Record<string, string> = {
@@ -118,10 +119,8 @@ export default function Menu({
             className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
           >
             {items.map((d) => (
-              <article
-                key={d.id}
-                className="group flex flex-col overflow-hidden rounded-[1.75rem] border border-gold/25 bg-white shadow-md shadow-maroon/5 transition-all duration-500 hover:-translate-y-2 hover:border-gold/60 hover:shadow-2xl hover:shadow-maroon/15"
-              >
+              <TiltCard key={d.id} className="h-full" innerClassName="h-full">
+                <article className="shine-sweep group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-gold/25 bg-white shadow-md shadow-maroon/5 transition-[border-color,box-shadow] duration-500 hover:border-gold/60 hover:shadow-2xl hover:shadow-maroon/15">
                 <div className="relative h-52 overflow-hidden">
                   <Image
                     src={d.img}
@@ -192,6 +191,7 @@ export default function Menu({
                   </div>
                 </div>
               </article>
+              </TiltCard>
             ))}
           </motion.div>
         </AnimatePresence>

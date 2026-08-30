@@ -24,10 +24,17 @@ export default function Footer() {
   return (
     <footer
       id="contact"
-      className="mt-auto scroll-mt-20 bg-maroon-deep text-cream/75"
+      className="relative mt-auto scroll-mt-20 bg-maroon-deep text-cream/75"
       aria-label="Footer"
     >
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
+      {/* ornamental top edge */}
+      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/70 to-transparent" />
+      <div aria-hidden className="absolute inset-x-0 top-0 h-10 bg-[radial-gradient(60%_100%_at_50%_0%,rgba(217,164,65,0.12),transparent)]" />
+      <div aria-hidden className="pointer-events-none absolute left-1/2 top-0 flex -translate-x-1/2 -translate-y-1/2 gap-3 bg-maroon-deep px-4 text-sm text-gold">
+        <span>✦</span><span className="text-gold-light">✦</span><span>✦</span>
+      </div>
+
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 pt-16 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
         {/* Brand */}
         <div>
           <div className="flex items-center gap-3">

@@ -345,3 +345,166 @@
     border-radius: 99px;
   }
 }
+
+/* ══════════════════════════════════════════════
+   La'Frutella Masterpiece Layer — Ambient / 3D
+   ══════════════════════════════════════════════ */
+
+@keyframes lf-drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(6vw, 4vh, 0) scale(1.1);
+  }
+  66% {
+    transform: translate3d(-4vw, 6vh, 0) scale(0.94);
+  }
+}
+
+@keyframes lf-drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-7vw, -6vh, 0) scale(1.14);
+  }
+}
+
+@keyframes lf-drift-c {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.06);
+  }
+  50% {
+    transform: translate3d(5vw, -7vh, 0) scale(0.9);
+  }
+}
+
+@keyframes lf-rise {
+  0% {
+    transform: translateY(6vh) scale(1);
+    opacity: 0;
+  }
+  12% {
+    opacity: var(--mote-opacity, 0.75);
+  }
+  85% {
+    opacity: var(--mote-opacity, 0.75);
+  }
+  100% {
+    transform: translateY(-72vh) scale(0.35);
+    opacity: 0;
+  }
+}
+
+@keyframes lf-shine {
+  0% {
+    transform: translateX(-160%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(320%) skewX(-18deg);
+  }
+}
+
+@keyframes lf-spin-rev {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@layer utilities {
+  /* Cinematic film grain */
+  .lf-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+  }
+
+  /* Luxury shine sweep (add .shine-sweep + overflow-hidden + relative to card) */
+  .shine-sweep {
+    position: relative;
+  }
+  .shine-sweep::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    bottom: -20%;
+    left: 0;
+    width: 38%;
+    background: linear-gradient(
+      100deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.09) 35%,
+      rgba(255, 255, 255, 0.4) 50%,
+      rgba(255, 255, 255, 0.09) 65%,
+      transparent 100%
+    );
+    transform: translateX(-160%) skewX(-18deg);
+    pointer-events: none;
+  }
+  .shine-sweep:hover::after {
+    animation: lf-shine 1.1s ease;
+  }
+
+  /* Gold-rising motes (add .gold-mote to a span) */
+  .gold-mote {
+    position: absolute;
+    bottom: -3vh;
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle,
+      rgba(247, 227, 176, 0.95) 0%,
+      rgba(217, 164, 65, 0.55) 45%,
+      transparent 72%
+    );
+    animation: lf-rise linear infinite;
+    pointer-events: none;
+  }
+
+  /* Outlined display text (parade watermark) */
+  .text-outline-gold {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(217, 164, 65, 0.3);
+  }
+  .text-outline-cream {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(251, 243, 228, 0.14);
+  }
+
+  /* Counter-rotate so orbiting treats stay upright */
+  .animate-spin-rev {
+    animation: lf-spin-rev 26s linear infinite;
+  }
+
+  /* Luxury mouse-follow accent (desktop pointers only) */
+  .lf-cursor-layer {
+    display: none;
+  }
+  @media (pointer: fine) {
+    .lf-cursor-layer {
+      display: block;
+    }
+  }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .animate-float,
+  .animate-float-delayed,
+  .animate-spin-slower,
+  .animate-spin-rev,
+  .animate-twinkle,
+  .animate-glow,
+  .animate-wiggle,
+  .animate-drip,
+  .gold-mote,
+  .text-gold-shimmer {
+    animation: none !important;
+  }
+  .gold-mote {
+    display: none;
+  }
+}
