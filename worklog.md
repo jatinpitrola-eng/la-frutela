@@ -82,3 +82,55 @@ Work Log:
 
 Stage Summary:
 - All golden-path interactions browser-verified end-to-end on desktop + mobile; order flow persisted to DB; lint clean; dev server healthy on port 3000
+
+---
+Task ID: 4-a, 4-b
+Agent: Main Agent (Z.ai Code)
+Task: Masterpiece aesthetic upgrade — ambient background system, 3D elements, luxury motion details
+
+Work Log:
+- globals.css: added lf-drift-a/b/c aurora keyframes, lf-rise gold motes, lf-shine sweep, lf-spin-rev (orbit counter-rotation), .lf-grain film grain, .shine-sweep, .gold-mote, .text-outline-gold/cream, .lf-cursor-layer (pointer:fine only) + prefers-reduced-motion guards
+- New components: ambient-background.tsx (fixed aurora orbs + grain + 16 rising motes + vignette), scroll-progress.tsx (gold ribbon), luxury-cursor.tsx (gold aura + trailing ring + dot, rAF lerp), tilt-card.tsx (springy rotateX/Y + lift + zoom)
+- page.tsx: wired ambient/progress/cursor layers; removed wrapper bg so body backdrop breathes through transparent sections
+- hero.tsx: 4-layer mouse parallax (watermark/ring/disc/treats/sparkles at different depths), 3D-tilting sundae disc, orbiting dessert ring (4 counter-rotated treats), 9 hero motes; fixed fill-image position warning
+- marquee-band.tsx: conveyor perspective (rotateX ±9-12deg), gold border-y ribbons, inline 28px dessert images between flavor names
+- rolling-showcase.tsx: two counter-scrolling giant outlined watermarks (PARADE/SWEET), gold hairline frame, perspective container
+- menu/categories/features/testimonials: TiltCard integration (removed Tailwind hover-translate conflicts), shine sweeps
+- cta.tsx: 7 rising motes + dual counter-rotating dashed ornament rings; footer.tsx: ornamental ✦ top edge + gold radial glow
+
+Stage Summary:
+- Full-page cinematic atmosphere + interactive 3D on all cards/hero; zero conflicts with existing animations; lint clean, tsc clean (src/)
+
+---
+Task ID: 4-c, 5-a
+Agent: Main Agent (Z.ai Code)
+Task: Vercel-readiness + full re-verification
+
+Work Log:
+- api/orders/route.ts: rebuilt with OrderStore abstraction — Prisma locally (dynamic import), in-memory globalThis store on Vercel (process.env.VERCEL) or on any Prisma failure; identical validation/codes/responses
+- layout.tsx: metadataBase → https://la-frutela.vercel.app, added schema.org Bakery JSON-LD (address, hours, rating)
+- README.md written (live link, features, stack, structure); .gitignore + untracked db/, tests/, download/, dev.log, server.log
+- bun run lint: clean; bunx tsc --noEmit: zero errors in src/ (only untracked template folders flagged)
+- Agent Browser desktop 1440x900: hero orbit ring + parallax live, conveyor marquees, menu tilt cards, Red Velvet modal (gold flakes ×2 = ₹958 correct), cart badge, order submitted → LF-2659, POST /api/orders 201 (Prisma), success screen; parade watermark hall verified
+- Agent Browser mobile 390x844: preloader, hero orbit ring stacks correctly, menu, footer at bottom
+- Fixed: hero sundae parent position warning; console zero errors
+
+Stage Summary:
+- Golden path re-verified end-to-end after refactor; production-ready
+
+---
+Task ID: 5-b
+Agent: Main Agent (Z.ai Code)
+Task: GitHub push + Vercel production deploy + live link
+
+Work Log:
+- Committed masterpiece upgrade (3c31911)
+- GitHub: verified token → user jatinpitrola-eng; created repo jatinpitrola-eng/la-frutela via API; pushed main (157+ files, 2.4MB branded images); stripped token from remote URL afterwards
+- Vercel: installed CLI 59.10.0 via bun, whoami OK, linked project la-frutela (prj_pwq3…); deployed --prod → Ready in 1m, aliased https://la-frutela.vercel.app
+- Live verification: GET / → 200; POST /api/orders → 201 LF-5386 (memory store path on serverless works); GET /api/orders → totalOrders 1
+- Agent Browser on production: full render confirmed (hero, orbit ring, ambient bg, no page errors)
+
+Stage Summary:
+- LIVE: https://la-frutela.vercel.app
+- Repo: https://github.com/jatinpitrola-eng/la-frutela
+- Orders API resilient on serverless (memory fallback) while persisting to SQLite locally
