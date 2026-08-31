@@ -6,9 +6,13 @@ import { smoothScrollTo } from "@/lib/smooth-scroll";
 
 const EXPLORE = [
   { href: "#home", label: "Home" },
-  { href: "#treasures", label: "Collections" },
   { href: "#menu", label: "Menu" },
   { href: "#lab", label: "Flavor Lab" },
+  { href: "#quiz", label: "Flavor Quiz" },
+  { href: "#seasons", label: "Fruit Seasons" },
+  { href: "#pairs", label: "Perfect Pairs" },
+  { href: "#celebrate", label: "Celebrations" },
+  { href: "#club", label: "Sweet Club" },
   { href: "#parade", label: "Dessert Parade" },
   { href: "#story", label: "Our Story" },
   { href: "#craft", label: "The Craft" },

@@ -27,7 +27,8 @@ type Stage = "cart" | "success";
 type Fulfil = "pickup" | "delivery";
 
 export default function OrderModal() {
-  const { items, orderOpen, setOrderOpen, removeItem, clearCart } = useCart();
+  const { items, orderOpen, setOrderOpen, removeItem, clearCart, setCelebrating } =
+    useCart();
   const [stage, setStage] = useState<Stage>("cart");
   const [orderId, setOrderId] = useState<string | null>(null);
   const [placing, setPlacing] = useState(false);
@@ -94,6 +95,8 @@ export default function OrderModal() {
       const data = await res.json();
       setOrderId(data.orderId ?? `LF-${Math.floor(1000 + Math.random() * 9000)}`);
       setStage("success");
+      // celebration moment — fruit rain over the whole screen
+      setCelebrating(true);
     } catch {
       setError("Our kitchen glitched for a second — please try again.");
     } finally {

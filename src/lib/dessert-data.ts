@@ -554,3 +554,349 @@ export const FAQS = [
     a: "We do live gelato carts, dessert counters and full hamper tables for 50–2,000 guests. Book 10 days ahead for peak-season weekends — summer dates go fast.",
   },
 ] as const;
+
+/* ══════════════════════════════════════════════
+   ROUND 3 · FLAVOR FINDER QUIZ
+   ══════════════════════════════════════════════ */
+
+export interface QuizOption {
+  emoji: string;
+  label: string;
+  sub: string;
+  scores: Record<string, number>;
+}
+
+export interface QuizQuestion {
+  q: string;
+  sub: string;
+  options: QuizOption[];
+}
+
+export const QUIZ_QUESTIONS: QuizQuestion[] = [
+  {
+    q: "What kind of day are you having?",
+    sub: "We'll match a dessert to your mood — be honest.",
+    options: [
+      {
+        emoji: "🎉",
+        label: "Celebrating something big",
+        sub: "Confetti mode: ON",
+        scores: { "molten-fudge": 3, "red-velvet": 2, "choco-lava-waffle": 2 },
+      },
+      {
+        emoji: "😌",
+        label: "Cozy & calm",
+        sub: "Slow morning energy",
+        scores: { "ny-cheesecake": 3, "pistachio-royale": 2, "belgian-gelato": 1 },
+      },
+      {
+        emoji: "🌞",
+        label: "Bright & fresh",
+        sub: "Fruit-forward, please",
+        scores: { "strawberry-cloud": 3, "mango-tango": 3, "berry-crepe": 1 },
+      },
+      {
+        emoji: "💫",
+        label: "Nostalgic & dreamy",
+        sub: "Childhood, but fancy",
+        scores: { "nutella-kiss": 3, "fudgy-brownie": 2, "donut-duo": 2 },
+      },
+    ],
+  },
+  {
+    q: "Your dream texture?",
+    sub: "The bite matters as much as the flavor.",
+    options: [
+      {
+        emoji: "☁️",
+        label: "Cloud-soft",
+        sub: "Sponge, cream, air",
+        scores: { "red-velvet": 2, "strawberry-cloud": 2, "berry-crepe": 2, "cupcake-trio": 1 },
+      },
+      {
+        emoji: "🍫",
+        label: "Melt-in-mouth rich",
+        sub: "Decadent & gooey",
+        scores: { "molten-fudge": 3, "nutella-kiss": 2, "choco-lava-waffle": 2 },
+      },
+      {
+        emoji: "🧊",
+        label: "Silky & ice-cold",
+        sub: "Dense gelato body",
+        scores: { "belgian-gelato": 3, "mango-tango": 2, "pistachio-royale": 2 },
+      },
+      {
+        emoji: "✨",
+        label: "Crunchy little bites",
+        sub: "Snap, crackle, luxe",
+        scores: { "macaron-box": 2, "fudgy-brownie": 2, "choco-lava-waffle": 2, "pistachio-royale": 1 },
+      },
+    ],
+  },
+  {
+    q: "Last one — pick a flavor family.",
+    sub: "Your soul dessert is waiting on the other side.",
+    options: [
+      {
+        emoji: "🫐",
+        label: "Berry royal",
+        sub: "Pink, tart & pretty",
+        scores: { "strawberry-cloud": 3, "red-velvet": 2, "berry-crepe": 2 },
+      },
+      {
+        emoji: "🥭",
+        label: "Tropical gold",
+        sub: "Sunshine in a bite",
+        scores: { "mango-tango": 3, "kesar-mango": 2, "salted-caramel": 1 },
+      },
+      {
+        emoji: "🥜",
+        label: "Nutty luxe",
+        sub: "Roasted & buttery",
+        scores: { "pistachio-royale": 3, "nutella-kiss": 2, "salted-caramel": 1 },
+      },
+      {
+        emoji: "🍫",
+        label: "Deep chocolate",
+        sub: "70% or nothing",
+        scores: { "belgian-gelato": 3, "molten-fudge": 2, "fudgy-brownie": 2 },
+      },
+    ],
+  },
+];
+
+/* ══════════════════════════════════════════════
+   ROUND 3 · FRUIT SEASONS
+   ══════════════════════════════════════════════ */
+
+export interface Season {
+  id: string;
+  name: string;
+  months: string;
+  emoji: string;
+  fruits: string[];
+  dessertId: string;
+  note: string;
+}
+
+export const SEASONS: Season[] = [
+  {
+    id: "summer",
+    name: "Summer",
+    months: "March – June",
+    emoji: "☀️",
+    fruits: ["🥭 Alphonso Mango", "🍒 Lychee", "🍈 Cantaloupe"],
+    dessertId: "mango-tango",
+    note: "Ratnagiri's king fruit rules our counter — gelato churned at 6 AM with Alphonso picked 36 hours earlier.",
+  },
+  {
+    id: "monsoon",
+    name: "Monsoon",
+    months: "July – September",
+    emoji: "🌧️",
+    fruits: ["🫐 Jamun", "🍑 Peach", "🥝 Passion Fruit"],
+    dessertId: "berry-crepe",
+    note: "Rainy evenings call for warm crêpes piled with macerated fruit while the windows fog up.",
+  },
+  {
+    id: "autumn",
+    name: "Autumn",
+    months: "October – November",
+    emoji: "🍂",
+    fruits: ["🍈 Sitaphal (Custard Apple)", "🍎 Pomegranate", "🌰 Fresh Dates"],
+    dessertId: "fruit-tart",
+    note: "The glazing season — our tarts wear whatever the mandi brims with, brushed gold and shining.",
+  },
+  {
+    id: "winter",
+    name: "Winter",
+    months: "December – February",
+    emoji: "❄️",
+    fruits: ["🍓 Mahabaleshwar Strawberry", "🍊 Nagpur Orange", "🍇 Nashik Grapes"],
+    dessertId: "strawberry-cloud",
+    note: "Mahabaleshwar berries arrive in cold boxes, still smelling of hill air — folded straight into cream.",
+  },
+];
+
+export const seasonForMonth = (m: number): number =>
+  m >= 2 && m <= 5 ? 0 : m >= 6 && m <= 8 ? 1 : m >= 9 && m <= 10 ? 2 : 3;
+
+/* ══════════════════════════════════════════════
+   ROUND 3 · PERFECT PAIRS (duets, save ₹50)
+   ══════════════════════════════════════════════ */
+
+export interface PairDef {
+  id: string;
+  name: string;
+  a: string;
+  b: string;
+  note: string;
+}
+
+export const PAIRS: PairDef[] = [
+  {
+    id: "duo-fire-snow",
+    name: "Fire & Snow",
+    a: "choco-lava-waffle",
+    b: "strawberry-cloud",
+    note: "Molten Belgian chocolate cooled by strawberry clouds — our most dramatic duet.",
+  },
+  {
+    id: "duo-golden-hour",
+    name: "Golden Hour",
+    a: "mango-tango",
+    b: "pistachio-royale",
+    note: "Tropical gold meets royal green. Summer and royalty in one tray.",
+  },
+  {
+    id: "duo-midnight",
+    name: "Midnight Kiss",
+    a: "molten-fudge",
+    b: "nutella-kiss",
+    note: "Double Belgian chocolate, zero regrets. Bring a spoon and a witness.",
+  },
+  {
+    id: "duo-patisserie",
+    name: "Patisserie Hour",
+    a: "macaron-box",
+    b: "salted-caramel",
+    note: "Parisian bites with a salted caramel swirl — 4 PM, done properly.",
+  },
+];
+
+export const PAIR_DISCOUNT = 50;
+
+/* ══════════════════════════════════════════════
+   ROUND 3 · CELEBRATIONS (party catering)
+   ══════════════════════════════════════════════ */
+
+export interface Celebration {
+  id: string;
+  emoji: string;
+  name: string;
+  from: number;
+  blurb: string;
+  features: string[];
+  featured?: boolean;
+}
+
+export const CELEBRATIONS: Celebration[] = [
+  {
+    id: "birthday",
+    emoji: "🎂",
+    name: "Birthday Bash",
+    from: 4999,
+    blurb: "Turn the candles up — a full dessert table for your crew of 18.",
+    features: [
+      "Showstopper cake, serves 18",
+      "2 dessert platters of your choice",
+      "Custom name topper & sparklers",
+      "Free delivery within 8 km",
+    ],
+  },
+  {
+    id: "wedding",
+    emoji: "💍",
+    name: "Wedding Royale",
+    from: 24999,
+    blurb: "The golden counter your guests will photograph all evening.",
+    features: [
+      "Live gelato cart, 100–500 guests",
+      "5-dessert golden counter",
+      "24k gold-leaf showstopper",
+      "Chef on-site + tasting for two",
+    ],
+    featured: true,
+  },
+  {
+    id: "corporate",
+    emoji: "💼",
+    name: "Corporate Sweet Box",
+    from: 2499,
+    blurb: "Client gifts and team Fridays, wrapped in branded gold.",
+    features: [
+      "Boxes of 10+ with branded sleeves",
+      "Macaron, brownie & bakes mix",
+      "Bulk pricing from 50 boxes",
+      "Same-week delivery, city-wide",
+    ],
+  },
+];
+
+/* ══════════════════════════════════════════════
+   ROUND 3 · SWEET CLUB (loyalty tiers)
+   ══════════════════════════════════════════════ */
+
+export interface ClubTier {
+  id: string;
+  emoji: string;
+  name: string;
+  price: number;
+  tag: string;
+  perks: string[];
+  featured?: boolean;
+}
+
+export const CLUB_TIERS: ClubTier[] = [
+  {
+    id: "sprinkle",
+    emoji: "✨",
+    name: "Sprinkle",
+    price: 0,
+    tag: "Free forever",
+    perks: [
+      "1 Scoop Point per ₹10 spent",
+      "Birthday gelato on the house",
+      "First taste of new flavors",
+    ],
+  },
+  {
+    id: "sundae",
+    emoji: "👑",
+    name: "Sundae",
+    price: 499,
+    tag: "Most loved",
+    perks: [
+      "2× Scoop Points on everything",
+      "Free sundae every month",
+      "Priority weekend pickup line",
+      "Access to the secret menu",
+    ],
+    featured: true,
+  },
+  {
+    id: "royal",
+    emoji: "💎",
+    name: "Royal Gold",
+    price: 1499,
+    tag: "For true regulars",
+    perks: [
+      "3× points + ₹200 joining credit",
+      "Quarterly dessert hamper",
+      "Free delivery, always",
+      "2 seats at the Chef's Tasting Lab",
+    ],
+  },
+];
+
+/* ══════════════════════════════════════════════
+   ROUND 3 · LIVE FROM THE PARLOUR (ticker feed)
+   ══════════════════════════════════════════════ */
+
+export interface LiveEntry {
+  who: string;
+  what: string;
+  emoji: string;
+  mins: number;
+}
+
+export const LIVE_FEED: LiveEntry[] = [
+  { who: "Aarav from C-Scheme", what: "2 × Mango Tango Sundae", emoji: "🥭", mins: 2 },
+  { who: "Priya from Vaishali Nagar", what: "Red Velvet + 24k Gold Flakes", emoji: "❤️", mins: 5 },
+  { who: "Kabir's birthday crew", what: "Wedding Royale enquiry", emoji: "🎉", mins: 8 },
+  { who: "Meera from Malviya Road", what: "3 × Nutella Kiss Shake", emoji: "🥤", mins: 11 },
+  { who: "Rohan's cricket team", what: "6 × Belgian Chocolate Gelato", emoji: "🍨", mins: 14 },
+  { who: "Anaya & family", what: "Choco Lava Waffle + Berry Crêpe", emoji: "🧇", mins: 17 },
+  { who: "Zoya from Amber Road", what: "French Macaron Box", emoji: "🧁", mins: 21 },
+  { who: "Dev from Tech Park One", what: "Corporate Box · 24 treats", emoji: "🏢", mins: 26 },
+];

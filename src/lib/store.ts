@@ -19,7 +19,9 @@ export interface CartItem {
 interface CartStore {
   items: CartItem[];
   orderOpen: boolean;
+  celebrating: boolean;
   setOrderOpen: (v: boolean) => void;
+  setCelebrating: (v: boolean) => void;
   addItem: (item: Omit<CartItem, "key">) => void;
   removeItem: (key: string) => void;
   clearCart: () => void;
@@ -28,7 +30,9 @@ interface CartStore {
 export const useCart = create<CartStore>((set) => ({
   items: [],
   orderOpen: false,
+  celebrating: false,
   setOrderOpen: (v) => set({ orderOpen: v }),
+  setCelebrating: (v) => set({ celebrating: v }),
   addItem: (item) =>
     set((state) => {
       const sig = item.addons

@@ -175,3 +175,28 @@ Work Log:
 
 Stage Summary:
 - LIVE: https://la-frutela.vercel.app — round-2 masterpiece shipped (Flavor Lab, Craft, Spotlight, Moments, FAQ, giant bg typography, no cursor follower)
+
+---
+Task ID: 8
+Agent: Main Agent (Z.ai Code)
+Task: Round-3 max-level upgrade — 8 new features (quiz, seasons, pairs, celebrations, club, live ticker, fruit rain, back-to-top), verify, push & deploy
+
+Work Log:
+- dessert-data.ts: added QUIZ_QUESTIONS (3×4 scoring matrix), SEASONS (4 with dessert mapping + seasonForMonth), PAIRS (4 duets + PAIR_DISCOUNT 50), CELEBRATIONS (3 packages), CLUB_TIERS (3 loyalty tiers), LIVE_FEED (8 entries)
+- store.ts: added celebrating flag + setCelebrating
+- NEW live-ticker.tsx: maroon "Live · The Parlour" strip, pulsing dot, 3.6s crossfading order feed, monthly orders stat
+- NEW flavor-finder.tsx (#quiz): 3-question soul-dessert quiz — animated progress bar, slide transitions, pressed states, point-scoring across 20 desserts, gold confetti burst result card, Add-to-Box + Explore-in-Menu + Retake; verified scoring (bright+silky+tropical → Mango Tango Sundae 8pts)
+- NEW season-calendar.tsx (#seasons): 4 season cards, current season auto-badged "In season now ✦" (server-safe new Date().getMonth()), selectable cards, AnimatePresence detail panel with season quote + season-star dessert + Taste-the-Season add
+- NEW perfect-pairs.tsx (#pairs): 4 chef duets with crossed-out combined price, SAVE ₹50 badge, dual-ring visual, adds synthetic pair item at bundle price (Fire & Snow ₹448 verified)
+- NEW celebrations.tsx (#celebrate): Birthday/Wedding/Corporate packages, featured dark Wedding Royale card w/ gold CTA, enquiry toast + tel: link
+- NEW sweet-club.tsx (#club): dark maroon loyalty section w/ rising gold motes + cream ghost word ROYALTY, 3 tiers, featured gold-gradient Sundae card, join toasts
+- NEW fruit-rain.tsx: order-success celebration — 46 falling fruit/sprinkle emojis, reduced-motion guard; FIXED layering by rendering outside z-10 wrapper so rain falls above Radix dialog
+- NEW back-to-top.tsx: gold-ringed floating button after 720px scroll
+- page.tsx: new section order (…Marquee → LiveTicker → Categories → Menu → FlavorFinder → FlavorLab → … → Craft → SeasonCalendar → PerfectPairs → … → Spotlight → Celebrations → Moments → Reviews → SweetClub → FAQ…)
+- navbar: Home/Menu/Flavor Lab/Flavor Quiz/Seasons/Our Story/Reviews; footer Explore: +Quiz/Seasons/Pairs/Celebrations/Club (14 links)
+- order-modal: setCelebrating(true) on success
+- Verified: lint clean, tsc clean (src/), agent-browser desktop 1440×900 (quiz full flow + result + add + toast + badge 1; seasons badge on Monsoon; pairs math ₹448; celebrations; club; fruit rain visible above dialog; order LF-1371 + LF-7798 POST 201) + mobile 390×844 (seasons/club stack correctly); console zero errors
+
+Stage Summary:
+- Round-3 masterpiece complete: 8 new features, all golden paths browser-verified, zero console errors
+- Ready for push to github.com/jatinpitrola-eng/la-frutela + Vercel prod redeploy
