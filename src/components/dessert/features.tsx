@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ChefHat, Clock, PartyPopper, Sprout } from "lucide-react";
 import TiltCard from "./tilt-card";
+import GhostWord from "./ghost-word";
 
 const FEATURES = [
   {
@@ -31,8 +32,9 @@ export default function Features() {
   return (
     <section
       aria-label="Why La'Frutella"
-      className="relative bg-gradient-to-b from-cream to-cream-dark/50 px-4 py-20 sm:px-6 lg:px-8"
+      className="relative overflow-hidden bg-gradient-to-b from-cream to-cream-dark/50 px-4 py-20 sm:px-6 lg:px-8"
     >
+      <GhostWord word="PROMISE" tone="maroon" drift={65} />
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {FEATURES.map((f, i) => (

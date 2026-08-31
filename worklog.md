@@ -134,3 +134,29 @@ Stage Summary:
 - LIVE: https://la-frutela.vercel.app
 - Repo: https://github.com/jatinpitrola-eng/la-frutela
 - Orders API resilient on serverless (memory fallback) while persisting to SQLite locally
+
+---
+Task ID: 6
+Agent: Main Agent (Z.ai Code)
+Task: Upgrade round — remove cursor follower, add bg typography + 5 new sections, re-verify, push & deploy
+
+Work Log:
+- REMOVED: luxury-cursor.tsx deleted, <LuxuryCursor/> unwired from page.tsx, .lf-cursor-layer CSS purged (user: "circle following mouse looks bad")
+- NEW ghost typography system: ghost-word.tsx (giant outlined maroon/gold/cream word, scroll-parallax drift via useScroll) — deployed as bg text on TREATS/MENU/CREATE/STORY/CRAFTED/PROMISE/LIMITED/LOVED/ASK US sections
+- Footer: giant outlined LA'FRUTELLA brand watermark above copyright bar
+- NEW SECTION Flavor Lab (#lab, flavor-lab.tsx): build-your-own sundae — 4 bases, 4 sauces, 3-max toppings (6 options), live composite preview bowl (spring-animated base swap, wobble-blob sauce pool via new lf-wobble keyframe, slot-positioned topping pops), auto-generated creation name ("The Pistachio Gold Crown"), live price, Add-My-Creation→cart, Surprise-Me chef randomizer
+- NEW SECTION The Craft (#craft, craft.tsx): From Dawn to Gold 4-step alternating timeline, gold halo nodes, ghost step numbers
+- NEW SECTION Spotlight (#spotlight, spotlight.tsx): Dessert of the Month (Mango Tango Sundae) luxury frame, badge, flavor-note chips, Reserve button→cart
+- NEW SECTION Sweet Moments (#moments, moments.tsx): rolling Instagram-style polaroid marquee with captions/likes, follow CTA
+- NEW SECTION FAQ (#faq, faq.tsx): shadcn accordion, numbered gold triggers, mail fallback
+- dessert-data.ts: LAB_BASES/LAB_SAUCES/LAB_TOPPINGS/CRAFT_STEPS/FAQS datasets
+- Navbar: links now Home/Collections/Menu/Flavor Lab/Story/Reviews; Footer Explore: +Lab/Craft/Moments/FAQ
+- FIXED: cta.tsx still referenced deleted cheesecake.png → cheesecake-v2.png (404 resolved)
+- FIXED: framer-motion useScroll(target) "non-static container" console warning → html{position:relative} in base layer
+- page.tsx order: Hero→Marquee→Categories→Menu→FlavorLab→Parade→About→Craft→Features→Spotlight→Moments→Reviews→FAQ→CTA→Footer
+- Verified: lint clean, tsc clean (src/), agent-browser desktop+mobile — Lab config ₹385 correct, cart badge, toasts, Surprise ₹325, order LF-2559 POST 201 Prisma-persisted, footer sticks, zero console errors
+- Dev-infra note: sandbox kills agent-spawned processes between tool calls; single-block server+verify pattern used; platform relaunches bun run dev for preview
+
+Stage Summary:
+- Masterpiece round 2 complete: cursor removed, 9 giant bg words + footer watermark, 5 new sections (Flavor Lab flagship interactive)
+- Ready for push to github.com/jatinpitrola-eng/la-frutela + Vercel prod redeploy

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { BadgeCheck } from "lucide-react";
 import Image from "next/image";
+import GhostWord from "./ghost-word";
 
 const PROMISES = [
   "Real fruits, never syrups",
@@ -47,6 +48,7 @@ export default function About() {
       className="relative scroll-mt-20 overflow-hidden px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
       aria-label="Our story"
     >
+      <GhostWord word="STORY" tone="maroon" drift={75} />
       <div className="pointer-events-none absolute -left-24 top-24 h-80 w-80 rounded-full bg-gold/15 blur-3xl" />
       <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
         {/* visual */}

@@ -417,3 +417,140 @@ export const MARQUEE_FLAVORS = [
 ];
 
 export const formatINR = (n: number) => `₹${n.toLocaleString("en-IN")}`;
+
+/* ══════════════════════════════════════════════
+   FLAVOR LAB — Build-your-own sundae data
+   ══════════════════════════════════════════════ */
+
+export interface LabBase {
+  id: string;
+  name: string;
+  short: string;
+  note: string;
+  img: string;
+  price: number;
+}
+
+export interface LabSauce {
+  id: string;
+  name: string;
+  short: string;
+  price: number;
+  color: string;
+}
+
+export interface LabTopping {
+  id: string;
+  name: string;
+  img: string;
+  price: number;
+}
+
+export const LAB_BASES: LabBase[] = [
+  {
+    id: "belgian",
+    name: "Belgian Chocolate",
+    short: "Belgian",
+    note: "70% couverture",
+    img: "/images/gelato.png",
+    price: 180,
+  },
+  {
+    id: "pistachio",
+    name: "Roasted Pistachio",
+    short: "Pistachio",
+    note: "Iranian praline",
+    img: "/images/pistachio.png",
+    price: 190,
+  },
+  {
+    id: "strawberry",
+    name: "Strawberry Cloud",
+    short: "Berry",
+    note: "Mahabaleshwar fruit",
+    img: "/images/strawberry-scoop.png",
+    price: 160,
+  },
+  {
+    id: "mango",
+    name: "Mango Tango",
+    short: "Mango",
+    note: "Alphonso & saffron",
+    img: "/images/mango-sundae.png",
+    price: 170,
+  },
+];
+
+export const LAB_SAUCES: LabSauce[] = [
+  { id: "choco", name: "Warm Choco Rain", short: "Choco", price: 30, color: "#3b2314" },
+  { id: "caramel", name: "Salted Caramel Silk", short: "Caramel", price: 30, color: "#c67f2e" },
+  { id: "berry", name: "Berry Coulis", short: "Berry", price: 35, color: "#c4405e" },
+  { id: "gold", name: "24k Gold Drizzle", short: "Gold", price: 60, color: "#d9a441" },
+];
+
+export const LAB_TOPPINGS: LabTopping[] = [
+  { id: "macaron", name: "Mini Macaron", img: "/images/macarons.png", price: 45 },
+  { id: "brownie", name: "Brownie Chunk", img: "/images/brownie.png", price: 50 },
+  { id: "donut", name: "Donut Bites", img: "/images/donut.png", price: 45 },
+  { id: "waffle", name: "Waffle Crisps", img: "/images/belgian-waffle.png", price: 50 },
+  { id: "berries", name: "Fresh Berries", img: "/images/fruit-tart.png", price: 40 },
+  { id: "cupcake", name: "Cupcake Crown", img: "/images/cupcake.png", price: 55 },
+];
+
+/* ══════════════════════════════════════════════
+   THE CRAFT — dawn-to-gold process steps
+   ══════════════════════════════════════════════ */
+
+export const CRAFT_STEPS = [
+  {
+    n: "01",
+    icon: "sprout",
+    title: "Sourced at Dawn",
+    text: "Farm fruit arrives before sunrise, Belgian couverture every Friday. Only what's absolutely perfect makes it through our kitchen door.",
+  },
+  {
+    n: "02",
+    icon: "flame",
+    title: "Churned & Tempered",
+    text: "Gelato churned slow and low for that dense, silky body. Chocolate tempered to a glassy snap that sings when you crack it.",
+  },
+  {
+    n: "03",
+    icon: "layers",
+    title: "Layered & Torched",
+    text: "Sponges brushed, glasses streaked, crêpes folded by hand. Layers built one at a time — no shortcuts, no mixes, no rush.",
+  },
+  {
+    n: "04",
+    icon: "sparkles",
+    title: "Finished in Gold",
+    text: "The final flourish: 24k gold flakes, hand-shaved curls, a whisper of saffron. If it isn't beautiful, it doesn't leave the pass.",
+  },
+] as const;
+
+/* ══════════════════════════════════════════════
+   FAQ — everything sweet tooths ask
+   ══════════════════════════════════════════════ */
+
+export const FAQS = [
+  {
+    q: "Do you deliver, and how fast?",
+    a: "Yes — within 8 km of MG Road we deliver in under 40 minutes, packed in insulated boxes that keep gelato at −12°C. Pickup orders are ready in just 15 minutes.",
+  },
+  {
+    q: "Can I order a custom celebration cake?",
+    a: "Absolutely. Share your theme 24 hours ahead and we'll design it with you — jewellery-box cakes, cricket-pitch brownies, even a miniature Taj Mahal in red velvet.",
+  },
+  {
+    q: "Are there vegan or no-refined-sugar options?",
+    a: "Six gelato bases are coconut-milk vegan and our date-sweetened sorbets carry zero refined sugar. Ask at the counter or look for the green ✦ tag on the menu.",
+  },
+  {
+    q: "How fresh is 'fresh', really?",
+    a: "Gelato is churned every morning at 6 AM, bakes leave the oven before 8 AM, and anything unsold at closing goes to the night shelter — never the next day's counter.",
+  },
+  {
+    q: "Do you cater parties and weddings?",
+    a: "We do live gelato carts, dessert counters and full hamper tables for 50–2,000 guests. Book 10 days ahead for peak-season weekends — summer dates go fast.",
+  },
+] as const;

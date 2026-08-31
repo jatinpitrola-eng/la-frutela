@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Quote, Star } from "lucide-react";
 import TiltCard from "./tilt-card";
+import GhostWord from "./ghost-word";
 
 const REVIEWS = [
   {
@@ -33,6 +34,7 @@ export default function Testimonials() {
       aria-label="Customer reviews"
     >
       <div className="bg-dots pointer-events-none absolute inset-0 opacity-50" />
+      <GhostWord word="LOVED" tone="maroon" drift={80} />
       <div className="relative mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 28 }}

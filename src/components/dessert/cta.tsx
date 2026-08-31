@@ -65,7 +65,7 @@ export default function CtaBanner() {
           <Image src="/images/cupcake.png" alt="" fill sizes="80px" className="object-cover" />
         </div>
         <div className="animate-float-delayed absolute bottom-10 right-10 hidden h-24 w-24 overflow-hidden rounded-full opacity-90 ring-4 ring-gold/40 lg:block">
-          <Image src="/images/cheesecake.png" alt="" fill sizes="96px" className="object-cover" />
+          <Image src="/images/cheesecake-v2.png" alt="" fill sizes="96px" className="object-cover" />
         </div>
 
         <div className="relative">

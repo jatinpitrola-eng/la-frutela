@@ -14,6 +14,7 @@ import {
 import { useCart } from "@/lib/store";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import GhostWord from "./ghost-word";
 import TiltCard from "./tilt-card";
 import DessertModal from "./dessert-modal";
 
@@ -55,6 +56,7 @@ export default function Menu({
       aria-label="Dessert menu"
     >
       <div className="bg-dots pointer-events-none absolute inset-0 opacity-60" />
+      <GhostWord word="MENU" tone="maroon" drift={85} />
       <div className="relative mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 28 }}

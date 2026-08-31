@@ -8,9 +8,13 @@ const EXPLORE = [
   { href: "#home", label: "Home" },
   { href: "#treasures", label: "Collections" },
   { href: "#menu", label: "Menu" },
+  { href: "#lab", label: "Flavor Lab" },
   { href: "#parade", label: "Dessert Parade" },
   { href: "#story", label: "Our Story" },
+  { href: "#craft", label: "The Craft" },
+  { href: "#moments", label: "Sweet Moments" },
   { href: "#reviews", label: "Reviews" },
+  { href: "#faq", label: "FAQ" },
 ];
 
 const SOCIALS = [
@@ -149,6 +153,13 @@ export default function Footer() {
             </p>
           </div>
         </div>
+      </div>
+
+      {/* giant brand watermark */}
+      <div aria-hidden className="pointer-events-none relative select-none overflow-hidden">
+        <p className="text-outline-cream -mb-[0.23em] whitespace-nowrap text-center font-display text-[13.5vw] font-black leading-none tracking-tight lg:text-[11rem]">
+          LA&apos;FRUTELLA
+        </p>
       </div>
 
       <div className="border-t border-gold/20">

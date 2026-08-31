@@ -143,6 +143,9 @@
   }
   html {
     scroll-behavior: smooth;
+    /* framer-motion useScroll(target) measures against the scrolling element;
+       a non-static position keeps its offset math warning-free */
+    position: relative;
   }
 }
 
@@ -415,6 +418,16 @@
   }
 }
 
+@keyframes lf-wobble {
+  0%,
+  100% {
+    border-radius: 62% 38% 46% 54% / 55% 48% 52% 45%;
+  }
+  50% {
+    border-radius: 45% 55% 60% 40% / 50% 62% 38% 52%;
+  }
+}
+
 @layer utilities {
   /* Cinematic film grain */
   .lf-grain {
@@ -478,14 +491,9 @@
     animation: lf-spin-rev 26s linear infinite;
   }
 
-  /* Luxury mouse-follow accent (desktop pointers only) */
-  .lf-cursor-layer {
-    display: none;
-  }
-  @media (pointer: fine) {
-    .lf-cursor-layer {
-      display: block;
-    }
+  /* Organic wobble blob (sauce pools, gelato swirls) */
+  .animate-wobble {
+    animation: lf-wobble 8s ease-in-out infinite;
   }
 }
 
@@ -500,6 +508,7 @@
   .animate-glow,
   .animate-wiggle,
   .animate-drip,
+  .animate-wobble,
   .gold-mote,
   .text-gold-shimmer {
     animation: none !important;

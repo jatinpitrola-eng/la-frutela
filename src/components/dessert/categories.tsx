@@ -6,6 +6,7 @@ import Image from "next/image";
 import { CATEGORIES, type CategoryId } from "@/lib/dessert-data";
 import { cn } from "@/lib/utils";
 import TiltCard from "./tilt-card";
+import GhostWord from "./ghost-word";
 
 export default function Categories({
   onSelect,
@@ -15,9 +16,10 @@ export default function Categories({
   return (
     <section
       id="treasures"
-      className="relative scroll-mt-20 px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
+      className="relative scroll-mt-20 overflow-hidden px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
       aria-label="Dessert collections"
     >
+      <GhostWord word="TREATS" tone="maroon" drift={70} />
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
