@@ -200,3 +200,18 @@ Work Log:
 Stage Summary:
 - Round-3 masterpiece complete: 8 new features, all golden paths browser-verified, zero console errors
 - Ready for push to github.com/jatinpitrola-eng/la-frutela + Vercel prod redeploy
+
+---
+Task ID: 8 (deploy record)
+Agent: Main Agent (Z.ai Code)
+Task: Push round-3 upgrade to GitHub + Vercel production deploy + live verification
+
+Work Log:
+- Committed d11da49 (16 files, +1594 lines: 8 new components, data sets, store flag, wiring)
+- GitHub: pushed main 286f972..d11da49 → github.com/jatinpitrola-eng/la-frutela via inline-token URL (token not stored in config)
+- Vercel: re-linked project la-frutela (prj_pwq3…), stray .env.local removed before & after deploy
+- Deployed --prod → status Ready in ~1m → https://la-frutela.vercel.app (HTTP 200)
+- Production verification (agent-browser 1440×900): Flavor Quiz section renders w/ FIND YOURS ghost text, Perfect Pairs "Add the Pair" → toast "Duet added ₹448 saved ₹50", cart badge 1, all nav anchors scroll; earlier local run: full order LF-7798 + fruit rain above dialog confirmed
+
+Stage Summary:
+- LIVE: https://la-frutela.vercel.app — round-3 masterpiece shipped (Flavor Finder quiz, Fruit Seasons, Perfect Pairs, Celebrations, Sweet Club, Live ticker, Fruit Rain, BackToTop)
