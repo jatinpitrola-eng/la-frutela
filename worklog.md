@@ -160,3 +160,18 @@ Work Log:
 Stage Summary:
 - Masterpiece round 2 complete: cursor removed, 9 giant bg words + footer watermark, 5 new sections (Flavor Lab flagship interactive)
 - Ready for push to github.com/jatinpitrola-eng/la-frutela + Vercel prod redeploy
+
+---
+Task ID: 7
+Agent: Main Agent (Z.ai Code)
+Task: Push upgrade to GitHub + Vercel production deploy + live verification
+
+Work Log:
+- Committed upgrade (0568f29): 6 new components, cursor removed, bg typography, data sets, CSS fixes
+- GitHub: pushed main e5c14ec..0568f29 to github.com/jatinpitrola-eng/la-frutela via inline-token URL (token not stored in git config)
+- Vercel: CLI 59.10.0 via bunx; re-linked project la-frutela (prj_pwq3…, team_9y02…); stray .env.local from link removed
+- Deployed --prod → https://la-frutela.vercel.app (200)
+- Production verification (agent browser): hero renders, nav shows Flavor Lab, cursor layer gone, footer Explore has Craft/Moments/FAQ; POST /api/orders on prod → 201 LF-8127
+
+Stage Summary:
+- LIVE: https://la-frutela.vercel.app — round-2 masterpiece shipped (Flavor Lab, Craft, Spotlight, Moments, FAQ, giant bg typography, no cursor follower)
